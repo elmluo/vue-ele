@@ -1,6 +1,15 @@
-# ele-app
+<!-- 安装vue官方脚手架 -->
+# vue-cli
+``` shell
+npm install vue-cli
+vue
+vue-list
+vue init webpack#1.0 ele-app
+```
 
+# ele-app
 > sell
+
 
 ## Build Setup
 
