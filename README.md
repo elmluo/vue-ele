@@ -9,7 +9,7 @@ vue init webpack#1.0 vue-ele
 cd vue-app
 npm install
 ```
-# 项目目录文件介绍
+## 项目目录文件介绍
 - build和config是webpack的相关配置文件
 - src 项目代码文件
 - static 项目依赖的第三方文件
@@ -37,6 +37,28 @@ npm install
   - "script" 表示执行的命令，例如运行npm run XXX 对应执行的代码
   - "dependencies" 生产环境下需要的依赖
   - "devDependencies" 编译环境下需要的依赖
+
+## 准备项目
+### 目录（脚手架生成）
+### 需求分析 
+### 项目resource 
+### 图标fonts
+### mockData和配置api`require(../data.json)/express.Router()` 
+
+  ```javascript
+  // bulid/dev-server.js
+  var apiRoutes = express.Router();
+  app.use('/api',apiRoutes);
+  apiRoutes.get('/seller',function (req,res) {
+    res.json({
+      errno: 0,
+      data: seller
+    });
+  });
+  ```
+
+
+
 
 # ele-app
 > sell
