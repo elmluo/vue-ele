@@ -1,15 +1,20 @@
 <!-- 安装vue官方脚手架 -->
-# vue-cli 脚手架安装
+## vue-cli 脚手架安装
 
 ``` shell
 npm install vue-cli
+// options
 vue
 vue-list
 vue init webpack#1.0 vue-ele
+
 cd vue-app
-npm install
+npm install 
+// webstom 开启项目会检索文件node_modules文件很多，需要屏蔽 file->setting->directories->选择node_modules
+ 或者 删除node_modules，在项目当中创建一个空的node_modules文件夹—>右击->Mark Directory as->excluded-npm install,这样也可以忽略node_modules文件
 ```
 ## 项目目录文件介绍
+
 - build和config是webpack的相关配置文件
 - src 项目代码文件
 - static 项目依赖的第三方文件
@@ -26,6 +31,8 @@ npm install
   - end_of_line = lf linux和mac换行符风格
   - insert_final_newline = true 自动换行文件 在末尾插入一个新行
   - trim_trailing_whitespace = true
+- .eslintrc.js
+  - eslint语法对于符号，空格规范到变态，建议webstom写完ES6代码后，ctrl+alt+l 格式化一下代码
 - .eslintignore 表示对里面的配置文件不会做语法检查
   - build/*.js 忽略对build文件下的所有文件做语法检查
   - config/*.js 忽略对config文件下面的所有文件做语法检查
@@ -39,6 +46,7 @@ npm install
   - "devDependencies" 编译环境下需要的依赖
 
 ## 准备项目
+
 ### 目录（脚手架生成）
 ### 需求分析 
 ### 项目resource 
@@ -56,9 +64,23 @@ npm install
     });
   });
   ```
+## 页面布局框架搭建
 
+### 组件拆分 `header/tab/content/ footer`
 
-
+  ```javascript
+  // 指令标签和HTML标签重命报错，所以注册组件的时候，需要自定义命名
+  export default {
+    components: {
+      'v-header': header
+    }
+  }
+  ```
+  - header: retina 1px像素border实现
+  - tab：flex自适应布局 
+    - 切换Vue-router（npm install vue-router@0.7.13）`v-link="{path:'/goods'}"`
+  - content: router-view外联`<router-view></router-view>`
+  
 
 # ele-app
 > sell

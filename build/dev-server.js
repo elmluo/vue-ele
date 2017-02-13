@@ -23,6 +23,7 @@ var ratings = appData.ratings;
 
 // server apiRoutes
 var apiRoutes = express.Router();
+app.use('/api',apiRoutes);
 apiRoutes.get('/seller',function (req,res) {
   res.json({
     errno: 0,
@@ -44,7 +45,7 @@ apiRoutes.get('/ratings',function (req,res) {
   });
 });
 
-app.use('/api',apiRoutes);
+
 
 
 

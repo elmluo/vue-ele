@@ -17,6 +17,10 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    // wlays need semi
+    'semi':['error','always'],
+    // indient use file called ".editorConfig", which also use in WebStom
+    'indent':0
   }
 }
