@@ -78,6 +78,27 @@ npm install
   ```
   - header: retina 1px像素border实现
     - ipconfig 草料二维码 手机端二维码 同一局域网
+    
+    ```javascript
+    // base.styl
+      @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5)
+      .class-border-1px
+      &::after
+        -webkit-transform: scaleY(0.7)
+        -moz-transform: scaleY(0.7)
+        -ms-transform: scaleY(0.7)
+        -o-transform: scaleY(0.7)
+        transform: scaleY(0.7)
+      @media (-webkit-min-device-pixel-ratio: 2.0),(min-device-pixel-ratio: 2.0)
+      .class-border-1px
+      &::after
+        -webkit-transform: scaleY(0.7)
+        -moz-transform: scaleY(0.7)
+        -ms-transform: scaleY(0.7)
+        -o-transform: scaleY(0.7)
+        transform: scaleY(0.7)
+    ```
+
   - tab：flex自适应布局 
     - 切换Vue-router（npm install vue-router@0.7.13）`v-link="{path:'/goods'}"`
   - content: router-view外联`<router-view></router-view>`
