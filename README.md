@@ -77,10 +77,11 @@ npm install
   }
   ```
   - header: retina 1px像素border实现
+    - ipconfig 草料二维码 手机端二维码 同一局域网
   - tab：flex自适应布局 
     - 切换Vue-router（npm install vue-router@0.7.13）`v-link="{path:'/goods'}"`
   - content: router-view外联`<router-view></router-view>`
-  
+    - router.go('/goods') 配置页面加载默认路由
 
 # ele-app
 > sell

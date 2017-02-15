@@ -5,11 +5,15 @@ import goods from './components/goods/goods.vue';
 import ratings from './components/ratings/ratings.vue';
 import seller from './components/seller/seller.vue';
 
+import 'common/stylus/index.styl';
+
 Vue.use(VueRouter);
 
 let app = Vue.extend(App);
 
-let router = new VueRouter();
+let router = new VueRouter({
+  linkActiveClass: 'active'
+});
 
 // /* eslint-disable no-new */
 // new Vue({
@@ -29,3 +33,4 @@ router.map({
   }
 });
 router.start(app, '#app');
+router.go('/goods');
