@@ -21,6 +21,7 @@ module.exports = {
     // wlays need semi
     'semi':['error','always'],
     // indient use file called ".editorConfig", which also use in WebStom
-    'indent':0
+    'indent':0,
+    'space-before-function-paren':0
   }
 }

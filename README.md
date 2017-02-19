@@ -51,6 +51,8 @@ npm install
 ### 需求分析 
 ### 项目resource 
 ### 图标fonts
+  - iconMoon ->iconMoonApp(可以使用它提供的也可以自己导入svg小图)
+  - 左上角import Icons 选择自己的svg图片
 ### mockData和配置api`require(../data.json)/express.Router()` 
 
   ```javascript
@@ -77,7 +79,7 @@ npm install
   }
   ```
   - header: retina 1px像素border实现
-    - ipconfig 草料二维码 手机端二维码 同一局域网
+    - ipconfig 草料二维码 手机端二维码 同一局域网 注意浏览器内核
     
     ```javascript
     // base.styl
@@ -103,6 +105,21 @@ npm install
     - 切换Vue-router（npm install vue-router@0.7.13）`v-link="{path:'/goods'}"`
   - content: router-view外联`<router-view></router-view>`
     - router.go('/goods') 配置页面加载默认路由
+
+## 页面布局框架搭建
+
+### vue-resource `ajax请求`
+  - 子组件，需要渲染的数据可以有父组件一次请求拿到；也可以子组件自己拿，但是组件较多的情况下，请求数据次数变多。
+  - 数组由子组件自己拿，还是父组件一次性拿，取决于组件复用性和真实的业务需求。data() {return{}}
+  - this.$http中的this上下文指的就是这个.vue组件实例。this.seller 的this指的是上面定义的data(){} 方法暴露的实例{};
+  - 304请求未修改，用的是缓存，可使用ctrl+f5强制刷新。
+  - 0.9版本的时候，http.md文档当中用.json()方法返回的是一个object对象，可以直接渲染数据，但是1.0版本返回的是一个.json 返回的是一个promise对象，数据从body里面拿去，这个坑，我看文档查了好久。console.log（this.seller）可以查看控制台返回的数据对象
+
+### header组件编写
+  - vue-resource拿到的数据渲染，在父组件的组件定义指令当中，用v.bind='seller'或者:seller='seller'这里推荐使用缩写形式
+  - 数据父组件传子组件，子组件用props:{}去接数据对象
+  - 有了seller这个数据结构，就可以编写template里面的数据结构;
+
 
 # ele-app
 > sell
