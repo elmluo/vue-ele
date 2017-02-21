@@ -52,7 +52,7 @@ npm install
 ### 项目resource 
 ### 图标fonts
   - iconMoon ->iconMoonApp(可以使用它提供的也可以自己导入svg小图)
-  - 左上角import Icons 选择自己的svg图片
+  - 左上角import Icons 选择自己的svg图片，选择想要的小图标，点击左下角generate生成图标文件
 ### mockData和配置api`require(../data.json)/express.Router()` 
 
   ```javascript
@@ -119,6 +119,29 @@ npm install
   - vue-resource拿到的数据渲染，在父组件的组件定义指令当中，用v.bind='seller'或者:seller='seller'这里推荐使用缩写形式
   - 数据父组件传子组件，子组件用props:{}去接数据对象
   - 有了seller这个数据结构，就可以编写template里面的数据结构;
+  - 注意溢出省略号的三个属性white-space/overflow/text-overflow
+  - 本图层设置rgba(x,x,x,0.2)透明效果，子层文字颜色的透明继承。
+  - 背景层filter:blur(10px)之后，会看到模糊边沿溢出，需要给父元素设置overflow:hidden;
+
+### 实现详情弹层页面
+  - 实现弹出层效果。浮层可以用fixed布局和z-index:100，但是footer的fixed固定也是相对于窗口的，有时候内容层比较长，footer层fixed布局的话会出现覆盖，可以用经典的CSS-sticky-footer
+  - 实现浮层布局和背景透明等，v-show指令 来控制浮层显示和隐藏，data(){return{detailShow:false}},通过data(){}实例对象传值
+  - 点击显示浮层：按钮等事件监听方法@click 通过methods:{}对象来控制，里面写方法，注意this.dataSow = true 会跟踪，data() 方法里面的变量，监听通知dom元素当中的便令发生变化。注意：方法和属性名不能同名。
+  - 点击隐藏浮层
+  - css-sticky-footer 注意同级元素上下margin会重叠，看谁的值比较大
+
+    ```html
+    //css-sticky(css黏性布局)
+    <div v-show="detailShow" class="detail">
+      <div class="detail-content-wrapper clearfix">
+        <div class="detail-content"></div>
+      </div>
+      <div class="footer"></div>
+    </div>
+    ```
+  - star(评论标新组件) 不同评级的星星实现组件抽象，v-for传参数实现灵活的组件运用 computed:{property} 更具不同图标大小计算属性。在模板里面绑定复杂表达式会让组件变得难以维护，所以任何复杂逻辑，都要计算属性
+
+
 
 
 # ele-app
