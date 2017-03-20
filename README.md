@@ -9,7 +9,7 @@ vue-list
 vue init webpack#1.0 vue-ele
 
 cd vue-app
-npm install 
+npm install
 // webstom 开启项目会检索文件node_modules文件很多，需要屏蔽 file->setting->directories->选择node_modules
  或者 删除node_modules，在项目当中创建一个空的node_modules文件夹—>右击->Mark Directory as->excluded-npm install,这样也可以忽略node_modules文件
 ```
@@ -48,12 +48,12 @@ npm install
 ## 准备项目
 
 ### 目录（脚手架生成）
-### 需求分析 
-### 项目resource 
+### 需求分析
+### 项目resource
 ### 图标fonts
   - iconMoon ->iconMoonApp(可以使用它提供的也可以自己导入svg小图)
   - 左上角import Icons 选择自己的svg图片，选择想要的小图标，点击左下角generate生成图标文件
-### mockData和配置api`require(../data.json)/express.Router()` 
+### mockData和配置api`require(../data.json)/express.Router()`
 
   ```javascript
   // bulid/dev-server.js
@@ -80,7 +80,7 @@ npm install
   ```
   - header: retina 1px像素border实现
     - ipconfig 草料二维码 手机端二维码 同一局域网 注意浏览器内核
-    
+
     ```javascript
     // base.styl
       @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5)
@@ -101,7 +101,7 @@ npm install
         transform: scaleY(0.7)
     ```
 
-  - tab：flex自适应布局 
+  - tab：flex自适应布局
     - 切换Vue-router（npm install vue-router@0.7.13）`v-link="{path:'/goods'}"`
   - content: router-view外联`<router-view></router-view>`
     - router.go('/goods') 配置页面加载默认路由
@@ -143,8 +143,31 @@ npm install
   - 注意v-for的track-by='$index'
   - 小标题左右会有两个长线，要做到不同屏幕宽度下面的自适应，可以用经典的flex布局。
   - flex布局，一般用的是div元素，如果用span元素，在某些安卓浏览器下面可能会用兼容性问题。这个是血一样的教训。
-  
+  - CSS3渐变很简单元素加transition=“fade” 在样式表当中定义终态fade-transition，然后定义进入的fade-enter，退出的fadeout
+  - backdrop：blur（10px）只有在ios上才有效果。
 
+### 实现商品详情页面
+  - 左右两栏flex布局。每一栏flex布局的
+  ```javascript
+    .goods
+        display: flex
+        position absolute
+        top 174px
+        bottom: 46px
+        width: 100%
+        overflow: hidden
+        .menu-wrapper
+          flex: 0 0 80px
+          //考虑到安卓端flex布局的兼容性问题，flex宽度定完之后，给个固定的宽度。
+          width: 80px
+          background: #f3f5f7
+        .foots-wrapper
+          flex: 1
+
+  ```
+
+  - menu 菜单
+   - display: table 垂直居中最好的布局。
 
 # ele-app
 > sell

@@ -29,7 +29,7 @@
     <div class="background">
       <img :src="seller.avatar" width="100%" height="100%">
     </div>
-    <div v-show="detailShow" class="detail">
+    <div v-show="detailShow" class="detail" transition="fade">
       <div class="detail-content-wrapper clearfix">
         <div class="detail-content">
           <h1 class="name">{{seller.name}}</h1>
@@ -42,7 +42,7 @@
             <div class="line"></div>
           </div>
           <ul class="supports" v-if="seller.supports">
-            <li class="supports-item" v-for="item in seller.supports" >
+            <li class="supports-item" v-for="item in seller.supports">
               <span class="icon" :class="classMap[$index]"></span>
               <span class="text">{{seller.supports[$index].description}}</span>
             </li>
@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-      <div class="detail-close">
+      <div class="detail-close" @click="closeDetail()">
         <i class="icon-close">X</i>
       </div>
     </div>
@@ -81,6 +81,9 @@
     methods: {
       showDetail: function () {
         this.detailShow = true;
+      },
+      closeDetail: function () {
+        this.detailShow = false;
       }
     },
     created() {
@@ -209,7 +212,14 @@
       width: 100%
       height: 100%
       overflow: auto
-      background: rgba(7, 17, 27, 0.8)
+      transition: all 1s
+      backdrop: blur(10px)
+      &.fade-transition
+        opacity: 1
+        background: rgba(7, 17, 27, 0.8)
+      &.fade-enter,&.fade-leave
+        opacity: 0
+        background: rgba(7, 17, 27, 0)
       .detail-content-wrapper
         min-height: 100%
         width: 100%
@@ -237,7 +247,7 @@
               flex: 1;
               position: relative
               top: 6px
-              border-top: 1px solid rgba(255,255,255,0.2)
+              border-top: 1px solid rgba(255, 255, 255, 0.2)
           .supports
             width: 80%
             margin: 24px auto 28px auto
