@@ -168,6 +168,8 @@ npm install
 
   - menu 菜单
    - display: table 垂直居中最好的布局。
+  - food 食品展示栏
+   - 一般建议直接在img元素里面设置好width和height
 
 # ele-app
 > sell
