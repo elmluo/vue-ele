@@ -148,6 +148,7 @@ npm install
 
 ### 实现商品详情页面
   - 左右两栏flex布局。每一栏flex布局的
+
   ```javascript
     .goods
         display: flex
@@ -170,7 +171,19 @@ npm install
    - display: table 垂直居中最好的布局。
   - food 食品展示栏
    - 一般建议直接在img元素里面设置好width和height
+  - better-scroll 插件使用
+   - v-el:foot-wrapper 定位DOM（中划线-命名不能用驼峰）
 
+    ```javascript
+      <div v-el:></div>
+      //js代码当中通过this.$els.XXX获取DOM元素
+      this.menuScroll = new BScroll(this.$els.foodWrapper)
+    ```
+   - 我们知道vue是数据驱动DOM的，但是这个过程是异步的，当数据加载完成之后，可能这个DOM还没更新。在created的时候，虽然数据跟新了，但是DOM没有实时跟新更新，用better-scroll去初始化高度的时候计算就会有问题。
+   - 所以我们这里要用到一个vue的接口$nextTick(),数据跟新之后是通过这个区更新DOM。在这个接口里去初始化插件方法，方法才会有效。
+
+
+   
 # ele-app
 > sell
 

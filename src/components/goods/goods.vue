@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <div class="menu-wrapper">
+    <div class="menu-wrapper" v-el:menu-wrapper>
       <ul>
         <li v-for="item in goods" class="menu-item border-1px">
           <span class="text">
@@ -10,7 +10,7 @@
         </li>
       </ul>
     </div>
-    <div class="foots-wrapper">
+    <div class="foots-wrapper" v-el:foods-wrapper>
       <ul>
         <li v-for="item in goods" class="food-list">
           <h1 class="title">{{item.name}}</h1>
@@ -23,12 +23,12 @@
                 <h2 class="name">{{food.name}}</h2>
                 <p class="desc">{{food.description}}</p>
                 <div class="extra">
-                  <span>月售{{food.sellCount}}份</span>
+                  <span class="count">月售{{food.sellCount}}份</span>
                   <span>好评率{{food.rating}}%</span>
                 </div>
                 <div class="price">
-                  <span>￥{{food.price}}</span>
-                  <span v-show="food.oldPrice">￥{{oldPrice}}</span>
+                  <span class="now">￥{{food.price}}</span>
+                  <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
               </div>
             </li>
@@ -40,6 +40,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import BScroll from 'better-scroll';
+
   const ERR_OK = 0;
 
   export default {
@@ -55,6 +57,9 @@
         if (response.errno === ERR_OK) {
           this.goods = response.data;
 //          console.log(this.goods);
+          this.$nextTick(() => {
+            this._initScroll();
+          });
         }
       });
     },
@@ -62,6 +67,12 @@
       return {
         goods: []
       };
+    },
+    methods: {
+      _initScroll() {
+        this.menuScroll = new BScroll(this.$els.menuWrapper);
+        this.foodsScroll = new BScroll(this.$els.foodsWrapper);
+      }
     }
 
   };
@@ -83,7 +94,7 @@
       width: 80px
       background: #f3f5f7
       .menu-item
-        diaplay: table
+        display: table
         padding: 0 12px
         width: 56px
         height: 54px
@@ -140,5 +151,27 @@
             height: 14px
             line-height: 14px
             font-size: 14px
-            color: rgb(7, 17, 27, 0)
+            color: rgb(7, 17, 27)
+          .desc, .extra
+            line-height: 10px
+            font-size: 10px
+            color: rgb(147, 153, 159)
+          .desc
+            margin-bottom: 8px
+            line-height: 12px
+          .extra
+            line-height: 10px
+            &.count
+              padding-right: 12px
+          .price
+            font-weight: 700px
+            line-height: 24px
+            .now
+              margin-right: 18px
+              font-size: 14px
+              color: rgb(240, 20, 20)
+            .old
+              text-decoration: line-through
+              font-size: 10px
+              color: rgb(147, 153, 159)
 </style>
