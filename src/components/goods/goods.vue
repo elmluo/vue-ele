@@ -2,7 +2,7 @@
   <div class="goods">
     <div class="menu-wrapper" v-el:menu-wrapper>
       <ul>
-        <li v-for="item in goods" class="menu-item border-1px">
+        <li v-for="item in goods" class="menu-item border-1px" :class="{'current': currentIndex==$index}">
           <span class="text">
             <span class="icon" v-show="item.type>0" :class="classMap[item.type]"></span>
             {{item.name}}
@@ -12,7 +12,7 @@
     </div>
     <div class="foots-wrapper" v-el:foods-wrapper>
       <ul>
-        <li v-for="item in goods" class="food-list">
+        <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
             <li v-for="food in item.foods" class="food-item border-1px">
@@ -41,7 +41,6 @@
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
-
   const ERR_OK = 0;
 
   export default {
@@ -50,31 +49,90 @@
         type: Object
       }
     },
+    computed: {
+      /**
+       * 计算属性（自己执行）：添加索引
+       *    根据滚动scrollY的值，判断在哪个栏目所在的高度范围之内，返回对应index
+       *    根据vue的计算属性特性，scrollY实时变化，currentIndex也会实时变化。
+       */
+      currentIndex() {
+        for (let i = 0; i < this.listHeight.length - 1; i++) {
+          let height1 = this.listHeight[i];
+          let heigth2 = this.listHeight[i + 1];
+          if (!heigth2 || (this.scrollY > height1 && this.scrollY < heigth2)) {
+            return i;
+          }
+        }
+        return 0;
+      }
+    },
     created() {
+      // 获取数据在DOM跟新之前
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+
+      /**
+       * 在创建的生命周期时候时候获取数组
+       */
       this.$http.get('./api/goods').then((response) => {
         response = response.body;
         if (response.errno === ERR_OK) {
           this.goods = response.data;
 //          console.log(this.goods);
+
+          // 拿到数据以后DOM跟新，然后再去计算高度
           this.$nextTick(() => {
             this._initScroll();
+            this._calculateHeight();
+//            console.log(123);
           });
         }
       });
     },
     data() {
       return {
-        goods: []
+        goods: [],
+
+        // 定义一个数组，用来存高度的变量
+        listHeight: [],
+
+        // 定义一个需要跟踪的一个变量
+        scrollY: 0
       };
     },
     methods: {
+      /**
+       * 使用滚动插件
+       */
       _initScroll() {
-        this.menuScroll = new BScroll(this.$els.menuWrapper);
-        this.foodsScroll = new BScroll(this.$els.foodsWrapper);
+        this.menuScroll = new BScroll(this.$els.menuWrapper, {});
+        this.foodsScroll = new BScroll(this.$els.foodsWrapper, {
+          // 开启插件实时滚动监听功能
+          probeType: 3
+        });
+        // 监听scrollY值的变化
+        this.foodsScroll.on('scroll', (pos) => {
+          this.scrollY = Math.abs(Math.round(pos.y));
+        });
+      },
+
+      /**
+       * 计算右侧每个栏目列表高度，存入data中定义的listHeight数组
+       * @type {NodeList}
+       */
+      _calculateHeight() {
+        // 找到该组件下的foodlist元素
+        let foodList = this.$els.foodsWrapper.getElementsByClassName('food-list-hook');
+        console.log(foodList);
+        let height = 0;
+        for (let i = 0; i < foodList.length; i++) {
+          console.log(foodList.length);
+          height += foodList[i].clientHeight;
+          console.log(foodList[i]);
+          this.listHeight.push(height);
+          console.log(this.listHeight);
+        }
       }
     }
-
   };
 
 </script>
@@ -99,6 +157,14 @@
         width: 56px
         height: 54px
         line-height: 14px
+        &.current
+          position: relative
+          z-index: 10;
+          margin-top: -1px
+          background: #00ff00
+          font-weight: 700
+          .text
+            border-none()
         .icon
           display: inline-block
           vertical-align top

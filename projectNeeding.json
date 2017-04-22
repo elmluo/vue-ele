@@ -7,6 +7,7 @@
 //7-5 右侧食品列表样式布局（3）
 //7-6 better-scroll实现menu和foods完美滚动（估计这里会有坑要填）（1）
 7-7 better-scroll实现左右菜单栏联动效果（2）
+    food-list-hook, 样式加上hook表明他是被js选择操作的样式，而这个样式并没有实际的效果，只是用来被js选择
 7-8 better-scroll运用（3）
 7-9 shopcart购物车组件（1）
 7-10 shopcart购物车组件（2）
